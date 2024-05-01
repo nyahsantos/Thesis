@@ -1,0 +1,286 @@
+%--------------------------------------------------------------------
+%						START PREAMBLE
+%--------------------------------------------------------------------
+
+% Two-sided document
+\documentclass[11pt]{report}
+
+%Import line number
+%\usepackage[]{lineno}
+%\linenumbers
+
+%\usepackage[utf8]{inputenc}
+%\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\graphicspath{ {images/} }
+\usepackage{wrapfig}
+
+
+\usepackage{lipsum}
+
+\usepackage{mdframed}	
+\usepackage{setspace}
+\usepackage{dirtytalk}
+
+\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+
+\usepackage[
+  a4paper,
+%  width=160mm,
+  top=1in,
+  bottom=1in,
+  left=1.5in,
+  right=1in,
+  headsep=10pt,
+%  bindingoffset=6mm
+  ]{geometry}
+
+\usepackage{comment}
+
+% Caption for figures; To make labels in boldface and set period 
+% as separator (e.g. Figure 1. <text>)
+\usepackage[
+  labelfont=bf,
+  labelsep=period,
+  size=footnotesize,
+  %skip=-5pt,
+  font=sf
+  ]{caption}	
+
+\usepackage{subcaption}
+% For headers and footers
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhead{}
+%\fancyhead[RE,LO]{\fontsize{10pt}{11pt}\selectfont\leftmark}
+%\fancyhead[LE,RO]{\fontsize{10pt}{11pt}\selectfont\rightmark}
+%\fancyfoot{}
+%\fancyfoot[RE,LO]{\thepage}
+%\fancyfoot[LE,RO]{\rightmark}
+%\renewcommand{\headrulewidth}{1.5pt}
+%\renewcommand{\footrulewidth}{1pt}
+
+%for pdf
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+%----- These are for tables
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{tabu}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{tabularray}
+\usepackage{threeparttable}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace {0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace {0pt}}m{#1}}
+\usepackage{tabularx}
+\usepackage{makecell}
+%-----
+
+% To adjust image positioning
+\usepackage[export]{adjustbox}	
+
+\usepackage{mathptmx}
+\usepackage{inconsolata}
+\usepackage{xr}
+\usepackage{setspace}
+
+\usepackage{titlesec}
+\titleformat{\chapter}
+  {\normalfont\Large\bfseries}
+  {\chaptertitlename\ \thechapter }{0pt}{\Large}
+\titlespacing*{\chapter}{0pt}{-30pt}{15pt}
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection }{1em}{}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{-30\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \Large\bfseries \thechapter.\space
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Large \bfseries #1\par\nobreak
+    \vskip 15\p@
+  }}
+\makeatother
+
+\usepackage{listings}
+
+%settings for my file inputs
+\doublespacing
+\lstset{basicstyle=\ttfamily, lineskip={-1pt}}
+\usepackage{color}
+\setlength{\parskip}{1.5pt}
+\usepackage{mhchem}
+\usepackage{soul}  % For underlines, use \ul{}
+
+\newcommand{\wideunderline}[2][2em]{%
+  \underline{\makebox[\ifdim\width>#1\width\else#1\fi]{#2}}%
+}
+
+\usepackage{chngcntr} % Changes counter of floats
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\theequation}{Eq \thesection--\arabic{equation}}
+
+\counterwithin{figure}{chapter} %\renewcommand{\thefigure}{\thesection--\arabic{figure}}
+
+\makeatletter
+  \renewcommand*\l@figure{\@dottedtocline{1}{0em}{3em}}% 2.3em->3em, 1.5->0
+  \renewcommand*\l@table{\@dottedtocline{1}{0em}{2.5em}}% 2.3em->3em, 1.5->0
+%  \let\l@table\l@figure
+  \renewcommand*\l@lstlisting{\@dottedtocline{1}{0em}{3.5em}}% 2.3em->3em,1.5->0
+\makeatother
+
+
+%setting up tcolorbox
+\usepackage[most]{tcolorbox}
+\tcbset{
+	frame code={}
+	center title,
+	left=0pt,
+	right=0pt,
+	top=0pt,
+	bottom=0pt,
+	colback=gray!25,
+        before upper={\singlespacing}
+}
+
+
+\makeatletter
+\usepackage{indentfirst}
+  \renewcommand*\l@chapter[2]{%
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{2.2em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup}
+  \renewcommand*\l@section{\@dottedtocline{1}{2em}{1.9em}}
+  \renewcommand*\l@subsection{\@dottedtocline{2}{3.7em}{2.5em}}
+  \renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
+%  \renewcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
+%  \renewcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
+\makeatother
+
+\makeatletter
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\bfseries}}
+\makeatother
+
+%%for scheme
+
+\usepackage{newfloat}
+
+\DeclareFloatingEnvironment[
+  fileext=png,
+  listname={List of Scheme},
+  name=Scheme,
+  placement=tp,
+  within=section,% activate it if you want
+  chapterlistsgaps=on,% only meaningful when chapters exist
+]{scheme}
+
+%\renewcommand{\listfigurename}{List of Figures}
+%\renewcommand{\listofscheme}{List of Schemes}
+%\renewcommand{\listtablename}{List of Tables}
+\renewcommand{\lstlistlistingname}{List of File}
+\usepackage{amssymb,amsfonts,amsmath}
+\usepackage{gensymb}
+
+% For references and bibliography
+\usepackage[
+  backend=bibtex,
+  sorting=none,
+  style=chem-acs,
+  citestyle=chem-acs,
+  articletitle=true,
+  doi=false,
+  url=true,
+  ]{biblatex}
+\usepackage{hyperref}
+\usepackage{float}
+\hypersetup{
+    colorlinks = true,
+    linkcolor = black,
+    citecolor = black
+}
+
+% Adds the bibliography file
+\addbibresource{main.bib}
+
+
+%--------------------------------------------------------------------
+%						END PREAMBLE
+%--------------------------------------------------------------------
+
+%--------------------------------------------------------------------
+%						META INFORMATION
+%--------------------------------------------------------------------
+
+% The title page is in a different file
+
+%--------------------------------------------------------------------
+%						BEGINNING OF DOCUMENT
+%--------------------------------------------------------------------
+
+
+
+
+%\documentclass[11pt, letterpaper]{report}
+%\usepackage[margin=1.0in]{geometry}
+%\usepackage{graphicx}
+%\usepackage{natbib}
+%\usepackage{soul}
+%\usepackage{xcolor}
+%\newcommand{\nel{\textcolor{teal}}}
+
+%\title{\textit{\textbf{Virtual design of benzylisoquinoline alkaloid derivatives as potential therapeutics against two targets in PCOS insulin resistance}}}
+
+%\author{Anatalia Marie M. Bisquera and Rineia Kirsten M. Santos}
+%\date{}
+
+\begin{document}
+
+\setcounter{tocdepth}{3}
+
+\input{chapters/0_front_page}
+\pagebreak
+
+\input{chapters/1_title_page}
+\pagebreak
+
+\tableofcontents
+\pagebreak
+
+\input{chapters/Chapter_1}
+\pagebreak
+
+\input{chapters/Chapter_2}
+\pagebreak
+
+\input{chapters/Chapter_3}
+\pagebreak
+
+\input{chapters/Others}
+\pagebreak
+
+\end{document}
